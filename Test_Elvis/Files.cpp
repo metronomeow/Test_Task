@@ -12,8 +12,24 @@ void Files::Setter(std::vector<std::string> delimiters) {
     this->delimiters = delimiters;
 }
 
+void Files::Setter_S(std::vector<std::string> substring) {
+    this->substring = substring;
+}
+
 void Files::Setter(std::string text) {
     this->text = text;
+}
+
+std::string Files::Getter() {
+    return(this->text);
+}
+
+std::vector<std::string> Files::Getter_D() {
+    return(this->delimiters);
+}
+
+std::vector<std::string> Files::Getter_S() {
+    return(this->substring);
 }
 
 void Files::ReadFile() {
@@ -24,7 +40,7 @@ void Files::ReadFile() {
     if (F.is_open()) {
         F >> text_from_file;
         this->Setter(text_from_file);
-        if (!F.eof()) {
+        while (!F.eof()) {
             F >> text_from_file;
             delimiters.push_back(text_from_file);
         }
@@ -35,5 +51,5 @@ void Files::ReadFile() {
 
 void Files::Print() {
     std::cout << text << std::endl;
-    std::cout << delimiters[0] << std::endl;
+    std::for_each(delimiters.begin(), delimiters.end(), [](std::string a) {std::cout << a << std::endl; });
 }
