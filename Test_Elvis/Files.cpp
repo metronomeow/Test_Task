@@ -4,8 +4,13 @@ Files::Files() {
 
 }
 
-void Files::Setter(std::u8string name) {
+void Files::Setter_N(std::string name) {
     this->name = name;
+}
+
+std::string Files::Getter_N()
+{
+    return this->name;
 }
 
 void Files::Setter(std::vector<std::string> delimiters) {
@@ -49,8 +54,20 @@ void Files::ReadFile() {
     F.close();
 }
 
+void Files::WriteFile(std::string output_filename) {
+    std::ofstream F;
+    F.open(output_filename, std::ios_base::app);
+    if (F.is_open()) {
+        F << name.c_str()<<std::endl;
+        for (std::string s : substring) {
+            F << s << std::endl;
+        }       
+    }
+    F.close();
+}
+
 void Files::Print() {
-    std::cout << text << std::endl;
-    std::for_each(delimiters.begin(), delimiters.end(), [](std::string a) {std::cout << a << std::endl; });
-    std::for_each(substring.begin(), substring.end(), [](std::string a) {std::cout << a << std::endl; });
+   //std::cout << text << std::endl;
+   //for_each(delimiters.begin(), delimiters.end(), [](std::string a) {std::cout << a << std::endl; });
+    for_each(substring.begin(), substring.end(), [](std::string a) {std::cout << a << std::endl; });
 }
