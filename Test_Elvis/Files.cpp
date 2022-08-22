@@ -63,6 +63,10 @@ void Files::WriteFile(std::string output_filename) {
             F << s << std::endl;
         }       
     }
+    else {
+        std::cout << "Output file is damaged!";
+        exit(1);
+    }
     F.close();
 }
 

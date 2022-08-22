@@ -2,7 +2,7 @@
 Test task. Parsing files using threads.
 
 #include"Files.h"
-#define PRINT_RES
+//#define PRINT_RES
 namespace fs = std::filesystem;
 
 Files Parsing(Files file) {
@@ -31,8 +31,7 @@ Files Parsing(Files file) {
                 }
             }
         }
-        file.Setter_S(substring);
-        
+        file.Setter_S(substring);        
     return(file);
 }
 
