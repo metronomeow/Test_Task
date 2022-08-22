@@ -52,4 +52,5 @@ void Files::ReadFile() {
 void Files::Print() {
     std::cout << text << std::endl;
     std::for_each(delimiters.begin(), delimiters.end(), [](std::string a) {std::cout << a << std::endl; });
+    std::for_each(substring.begin(), substring.end(), [](std::string a) {std::cout << a << std::endl; });
 }

@@ -4,7 +4,7 @@ Test task. Parsing files using threads.
 #include"Files.h"
 namespace fs = std::filesystem;
 
-void Parsing(std::vector<Files> array_of_files) {
+std::vector<Files> Parsing(std::vector<Files> array_of_files) {
         std::string string;//local string, it will take string values from files 
         std::vector<std::string> delimeter;//local vector, it will take delimiters values from files 
         std::vector<std::string> substring;//local vector, it will take substring values after parsing
@@ -15,23 +15,28 @@ void Parsing(std::vector<Files> array_of_files) {
         delimeter = array_of_files[i].Getter_D();
         substring.push_back(string);
         for (int j = 0; j < delimeter.size(); j++) {
-            //for (int k = 0; k < substring.size(); k++) {
-                //string = substring[k];
+            for (int k = 0; k < substring.size(); k++) {
+                string = substring[k];
                 position = 0;
                 if (!string.empty() && !delimeter.empty()) {
+                        size_t counter=0;
                     while ((position = string.find(delimeter[j])) != std::string::npos) {
                         token = string.substr(0, position);
-                        //substring.push_back(token);
-                        std::cout << token << std::endl;
+                        substring.insert(substring.begin() + k + 1 + counter,token);
+                        //std::cout << token << std::endl;
                         string.erase(0, position + delimeter[j].length());
+                        substring.insert(substring.begin() + k + 2 + counter, string);
+                        substring.erase(substring.begin() + k + counter);
+                        counter++;
                     }
-                    std::cout << string << std::endl;
+                    //std::cout << string << std::endl;
                 }
-            //}
+            }
         }
-        //array_of_files[i].Setter_S(substring);
-        //substring.clear();
+        array_of_files[i].Setter_S(substring);
+        substring.clear();
     }
+    return(array_of_files);
 }
 
 int main(int argc, char* argv[]) {
@@ -62,9 +67,9 @@ int main(int argc, char* argv[]) {
             file.ReadFile();
             array_of_files.push_back(file);            
         }
-        //for (int i = 0; i < array_of_files.size(); i++) { array_of_files[i].Print(); }
         
-        Parsing(array_of_files);
+        array_of_files = Parsing(array_of_files);
+        for (int i = 0; i < array_of_files.size(); i++) { std::cout << i << std::endl; array_of_files[i].Print(); }
 
         return EXIT_SUCCESS;
     }
